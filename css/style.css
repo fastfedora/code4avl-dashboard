@@ -2,7 +2,7 @@
  * Page Styles
  */
 body {
-	background: fixed url(images/bg.jpg); 
+	background: fixed url(../images/bg.jpg); 
 }
 
 .header {
