@@ -1,22 +1,13 @@
-/****************************************************************************************
- * Code4AVL.Dashboard - v0.0.1 - 10-Jun-2013
- *
- * https://github.com/fastfedora/code4avl-dashboard
- *
- * Copyright (c) 2013 Trevor Lohrbeer (Fast Fedora)
- *
+/**
+ * Open Dashboard - v0.0.2 - 6/15/2013
+ * https://github.com/fastfedora/code4avl-dashboard/
+ * Copyright (c) 2013 Trevor Lohrbeer (Fast Fedora);
  * License: MIT
  * https://github.com/fastfedora/code4avl-dashboard/blob/master/LICENSE
- ****************************************************************************************/
-// =======================================================================================
-// Code4AVL.Dashboard
-// =======================================================================================
+ */
 (function(global, _) {
   var Code4AVL = global.Code4AVL || (global.Code4AVL = {});
 
-  // ----------------------------------------------
-  // Dashboard
-  // ----------------------------------------------
   /**
    * The dashboard to display. Options include:
    *
@@ -139,34 +130,13 @@
     }
 
   });
-  
-  
-  // ----------------------------------------------
-  // Dashboard.WidgetGroup
-  // ----------------------------------------------
-  /**
-   * A group of widgets
-   *
-   * <dl>
-   * <dt>title</dt><dd>the title of the group</dd>
-   * <dt>description</dt><dd>the description of the group</dd>
-   * </dl>
-   *
-   * @param {Object} options the options used to create this object
-   * @returns {Object} an instance of this object
-   */
-  Code4AVL.Dashboard.WidgetGroup = function(options) {
-    _.extend(this, options);
-    
-    this.widgets = widgets || {};
-    
-    return this;
-  };
 
+}(this, _));
 
-  // ----------------------------------------------
-  // Dashboard.Widget
-  // ----------------------------------------------
+(function(global, _) {
+  var Code4AVL  = global.Code4AVL || (global.Code4AVL = {});
+  var Dashboard = global.Code4AVL.Dashboard;
+
   /**
    * A widget used to display data on the dashboard.
    *
@@ -178,13 +148,13 @@
    * @param {Object} options the options used to create this object
    * @returns {Object} an instance of this object
    */
-  Code4AVL.Dashboard.Widget = function(options) {
+  Dashboard.Widget = function(options) {
     _.extend(this, options);
 
     return this;
   };
   
-  _.extend(Code4AVL.Dashboard.Widget.prototype, {
+  _.extend(Dashboard.Widget.prototype, {
   
     /**
      * Adds data to the widget.
@@ -256,19 +226,36 @@
   
 }(this, _));
 
+(function(global, _) {
+  var Code4AVL  = global.Code4AVL || (global.Code4AVL = {});
+  var Dashboard = global.Code4AVL.Dashboard;
 
-// =======================================================================================
-// Code4AVL.Dashboard.Chart
-// =======================================================================================
+  /**
+   * A group of widgets
+   *
+   * <dl>
+   * <dt>title</dt><dd>the title of the group</dd>
+   * <dt>description</dt><dd>the description of the group</dd>
+   * </dl>
+   *
+   * @param {Object} options the options used to create this object
+   * @returns {Object} an instance of this object
+   */
+  Dashboard.WidgetGroup = function(options) {
+    _.extend(this, options);
+    
+    this.widgets = widgets || {};
+    
+    return this;
+  };
+  
+}(this, _));
+
 (function(global, _) {
   var Code4AVL  = global.Code4AVL || (global.Code4AVL = {});
   var Dashboard = global.Code4AVL.Dashboard;
   var Chart     = Dashboard.Chart || (Dashboard.Chart = {});
 
-
-  // ----------------------------------------------
-  // Chart.Util
-  // ----------------------------------------------
   Chart.Util = {};
 
   /**
@@ -283,11 +270,14 @@
     
     return value != null ? +value : null;
   };
+  
+}(this, _));
 
+(function(global, _) {
+  var Code4AVL  = global.Code4AVL || (global.Code4AVL = {});
+  var Dashboard = global.Code4AVL.Dashboard;
+  var Chart     = Dashboard.Chart || (Dashboard.Chart = {});
 
-  // ----------------------------------------------
-  // Chart.ColorScheme
-  // ----------------------------------------------
   Chart.ColorScheme = function(options) {
     _.extend(this, options);
 
@@ -349,10 +339,13 @@
   
   });
 
+}(this, _));
 
-  // ----------------------------------------------
-  // Chart.Stoplight
-  // ----------------------------------------------
+(function(global, _) {
+  var Code4AVL  = global.Code4AVL || (global.Code4AVL = {});
+  var Dashboard = global.Code4AVL.Dashboard;
+  var Chart     = Dashboard.Chart || (Dashboard.Chart = {});
+
   Chart.Stoplight = function(options) {
     _.extend(this, options);
 
@@ -416,10 +409,13 @@
   
   });  
   
-  
-  // ----------------------------------------------
-  // Chart.Pie
-  // ----------------------------------------------
+}(this, _));
+
+(function(global, _) {
+  var Code4AVL  = global.Code4AVL || (global.Code4AVL = {});
+  var Dashboard = global.Code4AVL.Dashboard;
+  var Chart     = Dashboard.Chart || (Dashboard.Chart = {});
+
   Chart.Pie = function(options) {
     _.extend(this, options);
 
