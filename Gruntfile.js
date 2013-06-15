@@ -13,9 +13,17 @@ module.exports = function(grunt) {
               " * <%= pkg.licenseUrl %>\n" +
               " */\n",
     
-      lastbuild : "<%= grunt.template.today(\"yyyy/mm/dd hh:ss\") %>"
+      buildinfo : "Package:   <%= pkg.title %>\n" + 
+                  "Home Page: <%= pkg.homepage %>\n" + 
+                  "Built On:  <%= grunt.template.today(\"yyyy/mm/dd hh:mm\") %>\n" +
+                  "Version:   <%= pkg.version %>\n" + 
+                  "Copyright: <%= grunt.template.today(\"yyyy\") %> <%= pkg.authors %>;\n",
+      
+      deps : {
+        'miso' : { name: 'miso.ds.deps', version: '0.4.0' },
+        'd3'   : { name: 'd3',           version: 'v3' }
+      }
     },
-    
     
     concat : {
       options: {
@@ -23,10 +31,10 @@ module.exports = function(grunt) {
       },
 
       fullnodeps: {
-        dest: "dist/<%= pkg.name %>.<%= pkg.version %>.js",
+        dest: "build/<%= pkg.name %>.<%= pkg.version %>.js",
         src: [
           "<%= concat.options.banner %>",
-          "src/js/dashboard/dashboard.js",
+          "src/js/dashboard.js",
           "src/js/dashboard/widget.js",
           "src/js/dashboard/widgetGroup.js",          
           "src/js/dashboard/chart/util.js",
@@ -37,41 +45,94 @@ module.exports = function(grunt) {
       },
 
       fulldeps: {
-        dest: "dist/<%= pkg.name %>.deps.<%= pkg.version %>.js",
+        dest: "build/<%= pkg.name %>.deps.<%= pkg.version %>.js",
         src : [
           "<%= concat.options.banner %>",
-          "lib/miso.ds.deps.0.4.0.js",
-          "lib/d3.v3.js",
-          "dist/lib/<%= pkg.name %>.<%= pkg.version %>.js"
+          "lib/<%= meta.deps.miso.name %>.<%= meta.deps.miso.version %>.js",
+          "lib/<%= meta.deps.d3.name %>.<%= meta.deps.d3.version %>.js",
+          "build/lib/<%= pkg.name %>.<%= pkg.version %>.js"
         ]
       },
 
       buildstatus : {
         options : {
-          banner : "<%= grunt.template.today(\"yyyy/mm/dd hh:ss\") %>"
+          banner : "<%= meta.buildinfo %>"
         },
-        dest : "dist/LASTBUILD",
+        dest : "build/build.info",
         src : [
-          "<%= 'lastbuild' %>"
+          "<%= 'buildinfo' %>"
         ]
       }
     },
     
-    uglify: {
+    uglify : {
       options: {
         banner: "<%= meta.banner %>"
       },
       
       fullnodeps: {
-        src : "dist/<%= pkg.name %>.<%= pkg.version %>.js",
-        dest: "dist/<%= pkg.name %>.min.<%= pkg.version %>.js"
+        src : "build/<%= pkg.name %>.<%= pkg.version %>.js",
+        dest: "build/<%= pkg.name %>.min.<%= pkg.version %>.js"
       }
-    }
+    },
+    
+    copy: {
+      build: {
+        files: [
+          { expand: true, cwd: 'src/pkg/', src: ['**'],  dest: 'build/' },
+          { expand: true, cwd: 'lib/', src: ['**'],  dest: 'build/lib/' },
+          
+          // Hack4Food Example
+          { expand: true, 
+            cwd: 'build/',
+            src: ['<%= pkg.name %>.<%= pkg.version %>.js'],
+            dest: 'build/examples/hack4food/lib/' },
+
+          { expand: true, 
+            cwd: 'lib/',
+            src: ['<%= meta.deps.miso.name %>.<%= meta.deps.miso.version %>.js',
+                  '<%= meta.deps.d3.name %>.<%= meta.deps.d3.version %>.js'], 
+            dest: 'build/examples/hack4food/lib/' }
+        ]
+      },
+      
+      dist: {
+        files: [
+          { expand: true, cwd: 'build/', src: ['**'],  dest: 'dist/' }
+        ]
+      }
+    },
+
+    includereplace : {
+      build: { 
+        options: {
+          globals: {
+            'script.dashboard' : '<%= pkg.name %>.<%= pkg.version %>.js',
+            'script.miso'      : '<%= meta.deps.miso.name %>.<%= meta.deps.miso.version %>.js',
+            'script.d3'        : '<%= meta.deps.d3.name %>.<%= meta.deps.d3.version %>.js'
+          },
+          prefix: '{{',
+          suffix: '}}'
+        },
+        src: 'src/pkg/**/*.html',
+        dest: 'build/'
+      }
+    },
+
+    clean: {
+      build: ["build/"],
+      dist:  ["dist/"]
+    },    
+      
   });
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks("grunt-contrib-concat");
+  grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks("grunt-contrib-clean");
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks("grunt-include-replace");
 
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['clean:build', 'concat', 'uglify', 'copy:build', 'includereplace:build']);
+  grunt.registerTask('dist', ['clean:dist', 'default', 'copy:dist']);
 
 };

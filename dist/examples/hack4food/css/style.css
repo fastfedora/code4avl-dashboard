@@ -1,0 +1,84 @@
+/**
+ * Page Styles
+ */
+body {
+	background: fixed url(../images/bg.jpg); 
+}
+
+.header {
+	background-color: #fff;
+	border: solid #ccc 1px;
+	margin-bottom: 10px;
+}
+
+.header h1 {
+	float: right;
+	font-size: 36pt;
+	font-family: Cambria, Georgia, Times, serif;;
+	color: #666;
+	padding: 10px 30px;
+}
+
+#logo {
+	height: 150px;
+}
+
+
+/**
+ * Dashboard Styles
+ */
+.widget {
+	width: 250px;
+	height: 250px;
+	background-color: #fff;
+	border: solid #ccc 1px; 
+	-moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;
+    float: left;
+    margin: 10px;
+}
+
+.widget .title {
+	font-size: 12pt;
+	font-family: arial,helvetica,sans-serif;
+	padding: 8px 5px;
+	margin: 0px;
+	text-align: center;
+}
+
+.widget .description {
+	font-size: 10pt;
+	font-family: arial,helvetica,sans-serif;
+	font-weight: normal;
+	padding: 3px;
+	margin: 0px;
+	text-align: center;
+}
+
+.widget .stoplightChart {
+	width: 150px;
+	height: 150px;
+/*	border: solid #333 1px; */
+	margin: 0px 50px;
+}
+
+.widget .stoplightChart .value {
+	font-size: 30pt;
+	font-family: arial,helvetica,sans-serif;
+	font-weight: normal;
+}
+
+.widget .pieChart {
+	width: 150px;
+	height: 150px;
+/*	border: solid #333 1px; */
+	margin: 0px 50px;
+}
+
+.widget .pieChart text {
+	font-size: 8pt;
+	font-family: arial,helvetica,sans-serif;
+	font-weight: normal;
+}
