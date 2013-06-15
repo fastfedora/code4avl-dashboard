@@ -23,20 +23,26 @@ module.exports = function(grunt) {
       },
 
       fullnodeps: {
-        dest: "dist/open-dashboard.<%= pkg.version %>.js",
+        dest: "dist/<%= pkg.name %>.<%= pkg.version %>.js",
         src: [
           "<%= concat.options.banner %>",
-          "src/simple-dashboard.js"
+          "src/js/dashboard/dashboard.js",
+          "src/js/dashboard/widget.js",
+          "src/js/dashboard/widgetGroup.js",          
+          "src/js/dashboard/chart/util.js",
+          "src/js/dashboard/chart/colorScheme.js",
+          "src/js/dashboard/chart/stoplight.js",
+          "src/js/dashboard/chart/pie.js"
         ]
       },
 
       fulldeps: {
-        dest: "dist/open-dashboard.deps.<%= pkg.version %>.js",
+        dest: "dist/<%= pkg.name %>.deps.<%= pkg.version %>.js",
         src : [
           "<%= concat.options.banner %>",
           "lib/miso.ds.deps.0.4.0.js",
           "lib/d3.v3.js",
-          "dist/open-dashboard.<%= pkg.version %>.js"
+          "dist/lib/<%= pkg.name %>.<%= pkg.version %>.js"
         ]
       },
 
@@ -55,9 +61,10 @@ module.exports = function(grunt) {
       options: {
         banner: "<%= meta.banner %>"
       },
-      build: {
-        src : "src/<%= pkg.name %>.js",
-        dest: "build/<%= pkg.name %>.min.js"
+      
+      fullnodeps: {
+        src : "dist/<%= pkg.name %>.<%= pkg.version %>.js",
+        dest: "dist/<%= pkg.name %>.min.<%= pkg.version %>.js"
       }
     }
   });
