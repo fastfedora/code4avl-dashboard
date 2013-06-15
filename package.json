@@ -1,10 +1,21 @@
 {
   "name": "simple-dashboard",
+  "title": "Open Dashboard",
+  "description": "Open Dashboard is a JavaScript library aimed at making dashboards easy.",
   "version": "0.0.2",
+  "homepage": "https://github.com/fastfedora/code4avl-dashboard/",
+  "authors": "Trevor Lohrbeer (Fast Fedora)",
+  "license": "MIT",
+  "licenseUrl": "https://github.com/fastfedora/code4avl-dashboard/blob/master/LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fastfedora/code4avl-dashboard.git"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-nodeunit": "~0.1.2",
-    "grunt-contrib-uglify": "~0.2.2"
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-concat": "~0.3.0"
   }
 }
